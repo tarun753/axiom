@@ -1,4 +1,4 @@
-import { writeFileSync, mkdirSync, existsSync, appendFileSync } from 'node:fs'
+import { writeFileSync, mkdirSync, existsSync, appendFileSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const CONFIG_TEMPLATE = `import { defineConfig } from '@axiom-ai/core'

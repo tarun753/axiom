@@ -62,7 +62,10 @@ export async function loadConfig(cwd = process.cwd()): Promise<AxiomConfig> {
 
   // structuredClone the defaults so downstream mutation can't pollute the
   // module-level DEFAULTS across multiple loadConfig() calls.
-  const merged = deepMerge(structuredClone(DEFAULTS), userConfig)
+  const merged = deepMerge(
+    structuredClone(DEFAULTS) as unknown as Record<string, unknown>,
+    userConfig as Record<string, unknown>,
+  ) as unknown as AxiomConfig
 
   // Inject API keys from env if not in config
   merged.apiKeys = {

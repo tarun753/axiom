@@ -87,8 +87,8 @@ describe('EnsembleJudge — weighted strategy', () => {
 
   it('throws if weights do not sum to 1', () => {
     expect(() => new EnsembleJudge(
-      [new FakeJudge('a', r('pass', 1))],
-      { strategy: 'weighted', weights: [0.5, 0.5] },
+      [new FakeJudge('a', r('pass', 1)), new FakeJudge('b', r('pass', 1))],
+      { strategy: 'weighted', weights: [0.3, 0.4] },
     )).toThrow(/sum to 1/)
   })
 })

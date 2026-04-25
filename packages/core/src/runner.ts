@@ -55,6 +55,9 @@ export async function loadEvalFiles(
   }
 
   // Reset the registry before importing files
+  // @ts-expect-error — @axiom-ai/sdk depends on core, so core can't depend on it
+  // back without a workspace cycle. The sdk is loaded lazily at runtime; consumers
+  // of executeRun (the CLI) install both packages so the import resolves there.
   const { resetRegistry, getRegisteredEvals } = await import('@axiom-ai/sdk')
   resetRegistry()
 
@@ -76,6 +79,7 @@ async function executeEval(
   runId: string,
   reporters: Reporter[],
 ): Promise<EvalResult[]> {
+  // @ts-expect-error — see note above on the lazy SDK import
   const { EvalContextImpl } = await import('@axiom-ai/sdk')
   const ctx = new EvalContextImpl(config, runId, def.options.spec)
 

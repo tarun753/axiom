@@ -68,20 +68,24 @@ async function callAnthropic(p: CompletionParams): Promise<EvalResponse> {
   const convo        = p.messages.filter(m => m.role !== 'system')
   const system       = [p.systemPrompt, ...inlineSystem].filter(Boolean).join('\n\n') || undefined
 
+  const params = {
+    model: p.model,
+    max_tokens: p.maxTokens ?? 2048,
+    temperature: p.temperature ?? 0,
+    messages: convo.map(m => ({
+      role:    m.role as 'user' | 'assistant',
+      content: m.content,
+    })),
+    ...(system ? { system } : {}),
+  }
+
+  // Cast to non-streaming Message — we never set stream:true so this is safe.
   const res = await withRetry(() =>
-    client.messages.create({
-      model: p.model,
-      max_tokens: p.maxTokens ?? 2048,
-      temperature: p.temperature ?? 0,
-      system,
-      messages: convo.map(m => ({
-        role:    m.role as 'user' | 'assistant',
-        content: m.content,
-      })),
-    })
+    client.messages.create(params) as Promise<Awaited<ReturnType<typeof client.messages.create>> & { content: Array<{ type: string; text?: string }>; usage: { input_tokens: number; output_tokens: number }; stop_reason: string | null }>
   )
 
-  const content = res.content[0]?.type === 'text' ? res.content[0].text : ''
+  const firstBlock = res.content[0]
+  const content   = firstBlock?.type === 'text' ? (firstBlock.text ?? '') : ''
   const tokensIn  = res.usage.input_tokens
   const tokensOut = res.usage.output_tokens
 

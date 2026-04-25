@@ -6,6 +6,7 @@
 
 *Test what your AI means, not what it says.*
 
+[![CI](https://github.com/tarun753/axiom/actions/workflows/ci.yml/badge.svg)](https://github.com/tarun753/axiom/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/built%20with-TypeScript-3178c6.svg)](https://www.typescriptlang.org/)
 [![Status](https://img.shields.io/badge/status-alpha-orange.svg)](#status)

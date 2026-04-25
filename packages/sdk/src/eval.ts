@@ -1,4 +1,4 @@
-import type { EvalContext, EvalOptions, Spec } from '@axiom-ai/core'
+import type { EvalContext, EvalDefinition, EvalOptions } from '@axiom-ai/core'
 import { registerEval } from './registry.js'
 
 type EvalFn = (ctx: EvalContext) => Promise<void>
@@ -14,7 +14,7 @@ function makeEvalDef(
   fn:      EvalFn,
   opts:    EvalOptions,
   filePath: string,
-) {
+): EvalDefinition {
   return {
     name,
     fn,
@@ -24,7 +24,9 @@ function makeEvalDef(
       retries:     opts.retries     ?? 0,
       concurrency: opts.concurrency ?? 5,
       tags:        opts.tags        ?? [],
-      spec:        opts.spec        ?? undefined,
+      // spec stays undefined when not supplied; cast through unknown to satisfy
+      // Required<EvalOptions> while preserving runtime semantics.
+      spec:        opts.spec as EvalDefinition['options']['spec'],
       skip:        opts.skip        ?? false,
       only:        opts.only        ?? false,
     },
