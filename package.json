@@ -1,0 +1,24 @@
+{
+  "name": "axiom",
+  "private": true,
+  "description": "Open-source behavioral testing infrastructure for AI applications",
+  "workspaces": ["packages/*", "apps/*"],
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "test": "turbo test",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "clean": "turbo clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.0",
+    "typescript": "^5.7.0",
+    "@types/node": "^22.0.0",
+    "prettier": "^3.4.0",
+    "eslint": "^9.0.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": { "node": ">=20.0.0", "pnpm": ">=9.0.0" },
+  "packageManager": "pnpm@9.0.0"
+}

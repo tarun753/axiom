@@ -1,0 +1,8 @@
+node_modules/
+.axiom/
+dist/
+.next/
+.turbo/
+*.tsbuildinfo
+axiom-report.json
+axiom-report.html

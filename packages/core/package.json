@@ -1,0 +1,28 @@
+{
+  "name": "@axiom-ai/core",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "import": "./dist/index.js", "types": "./dist/index.d.ts" }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.0.0",
+    "glob": "^11.0.0",
+    "p-limit": "^6.0.0",
+    "@anthropic-ai/sdk": "^0.39.0",
+    "openai": "^4.77.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  }
+}
